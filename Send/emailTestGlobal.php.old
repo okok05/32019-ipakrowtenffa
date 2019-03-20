@@ -1,0 +1,340 @@
+<?php
+	 include_once('../Includes/sessionVerificationMailer.php'); 
+	 $monUrl = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+	 verify($monUrl);
+	 
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>EXT - Email Test Global</title>
+	
+	
+	
+
+	
+    <?php include('../Includes/css.php');?>
+	<?php include('../Includes/js.php');?>
+	
+	
+	
+	
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js"></script>
+	<link rel="stylesheet" href="css/common.css" type="text/css" />
+	<link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/themes/ui-lightness/jquery-ui.css" />
+	<link type="text/css" href="css/ui.multiselect.css" rel="stylesheet" />
+	
+	<script type="text/javascript" src="js/plugins/localisation/jquery.localisation-min.js"></script>
+	
+	<script type="text/javascript" src="js/ui.multiselect.js"></script>
+
+		<script type="text/javascript">
+		$(function(){
+			$.localise('ui-multiselect', {/*language: 'en',*/ path: 'js/locale/'});
+			$(".multiselect").multiselect();
+		});
+	</script>
+	
+</head>
+
+<body style="background-color:#F5F5F5;">
+	<?php include('../Includes/navbar.php');?>
+    
+
+
+	<!-- Page container -->
+	<div class="page-container">
+
+		<!-- Page content -->
+		<div class="page-content">
+
+			<!-- Main sidebar -->
+		<?php Include('../Includes/sidebar.php');?>
+			<!-- /main sidebar -->
+
+
+			<!-- Main content -->
+			<div class="content-wrapper">
+
+				<!-- Page header -->
+				<div class="page-header">
+					<div class="page-header-content">
+						<div class="page-title">
+							<h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Email Test Global</span></h4>
+						</div>
+
+						
+					</div>
+
+					<div class="breadcrumb-line">
+						<ul class="breadcrumb">
+							<li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
+							<li><a href="../indexOfficial.php">Email Test Global</a></li>
+						</ul>
+
+			
+					</div>
+				</div>
+				<!-- /page header -->
+
+
+				<!-- Content area -->
+				<div class="content">
+
+					<!-- Form horizontal -->
+					<div class="panel panel-flat">
+					    <div class="panel-body">
+					
+					<form class="form-horizontal" method="POST" id="formEmailTest">
+					
+					    <fieldset class="content-group">
+									<legend class="text-bold">Email Test Global</legend>
+
+									
+<center>			
+<div class="form-group">
+				<label class="control-label col-lg-2"></label>								
+<table style="position:relative;left:-50px;">
+   <tr>
+      <td style="padding-right:50px;padding-bottom:50px;">
+	    <span class="label bg-success heading-text">Email Test</span><br/>
+	  <input type="text" class="form-control" name="txtEmailTest" id="txtEmailTest"/>
+	  </td>
+	  
+	  <td style="padding-right:50px;padding-bottom:50px;">
+	    <span class="label bg-success heading-text">Return Path</span><br/>
+	  <input type="text" class="form-control" name="txtReturnPath" id="txtReturnPath" value="return@[domain]"/>
+	  </td>
+   </tr>
+   
+      <tr>
+      <td  style="padding-right:50px;padding-bottom:50px;">
+	  <span class="label bg-success heading-text">Header : [to] - [domain] - [date] - [file]</span><br/>
+	  <textarea class="form-control" name="txtHeader" id="txtHeader" style="width:600px;" rows="8">
+fromName:[sr]
+fromEmail: <contact@[domain]>
+subject:[ip]
+date:[date]
+to:"Subscriber" [to],
+reply-to:<reply@[domain]></textarea>
+	  </td>
+	  
+	  
+	  <td>
+	  
+	  <div class="alert alert-info alert-styled-left alert-bordered" style="width:350px;height:320px;">
+		<button type="button" class="close" data-dismiss="alert"><span></span><span class="sr-only">Close</span></button>
+		 <table>
+		   <tr>
+		      <td style="padding-bottom:15px;"><h5>[sr]</h5></td>
+			  <td style="padding-left:15x;padding-bottom:15px;position:relative;left:10px;"><h5>Server Alias</h5></td>
+		   </tr>
+		   
+		   <tr style="padding-bottom:10px;">
+		     <td style="padding-bottom:15px;"><h5>[ip]</h5></td>
+			 <td style="padding-left:15x;padding-bottom:15px;position:relative;left:10px;"><h5>IP</h5></td>
+		   </tr>
+		   
+		   <tr>
+		      <td style="padding-bottom:15px;"><h5>[domain]</h5></td>
+			  <td style="padding-left:15x;padding-bottom:15px;position:relative;left:10px;"><h5>Domain</h5></td>
+		   </tr>
+		   
+		   <tr>
+		      <td style="padding-bottom:15px;"><h5>[date]</h5></td>
+			  <td style="padding-left:15x;padding-bottom:15px;position:relative;left:10px;"><h5>Current Date</h5></td>
+		   </tr>
+		   
+		   <tr>
+		      <td style="padding-bottom:15px;"><h5>[to]</h5></td>
+			  <td style="padding-left:15x;padding-bottom:15px;position:relative;left:10px;"><h5>Recipient</h5></td>
+		   </tr>
+		   
+		   <tr>
+		      <td style="padding-bottom:15px;"><h5>[file]</h5></td>
+			  <td style="padding-left:15x;padding-bottom:15px;position:relative;left:10px;"><h5>Test Multiple</h5></td>
+		   </tr>
+		   
+		   <tr>
+		      <td style="padding-bottom:15px;"><h5>[RandomC/5]</h5></td>
+			  <td style="padding-left:15x;padding-bottom:15px;position:relative;left:10px;"><h5>Characters</h5></td>
+		   </tr>
+		   
+		   <tr>
+		      <td style="padding-bottom:15px;"><h5>[RandomD/5]</h5></td>
+			  <td style="padding-left:15x;padding-bottom:15px;position:relative;left:10px;"><h5>Numbers</h5></td>
+		   </tr>
+		   
+		   <tr>
+		      <td style="padding-bottom:15px;"><h5>[RandomCD/5]</h5></td>
+			  <td style="padding-left:15x;padding-bottom:15px;position:relative;left:10px;"><h5>Alpha-Numeric</h5></td>
+		   </tr>
+		   
+		 </table>
+
+	</div>
+	
+	  </td>
+   </tr>
+
+    
+		
+      <tr>
+      <td colspan="2" style="padding-right:50px;padding-bottom:50px;">
+	  <span class="label bg-success heading-text">FILE</span><br/>
+	  <textarea class="form-control" name="txtFILE" id="txtFILE" style="width:600px;" rows="8"></textarea>
+	  </td>
+	  
+	  
+   </tr>
+   
+   
+   <tr>
+      <td colspan="2" style="padding-bottom:50px;">
+	  <span class="label bg-success heading-text">Body : [domain] - [date] - [file]</span><br/>
+	  <textarea class="form-control" name="txtBody" id="txtBody" style="width:600px;height:300px;" rows="8"></textarea>
+	  </td>
+	  
+	  
+	
+	
+	 
+   </tr>
+   
+   
+	
+</table>	
+
+<br/><br/>
+
+<?php
+   include('../Includes/bdd.php');
+   
+   $id_Isp = $_SESSION['id_Isp_Employer'];
+   
+   $requete = $bdd->query('select id_Server,alias_Server from server');
+   
+   
+    
+   ?>
+		<select id="cmbServers" class="multiselect" multiple="multiple" name="cmbServers[]" style="width:200px;">
+		  <?php
+		    while($row = $requete->fetch())
+			{
+				$requeteIsp = $bdd->prepare('select id_Server from serverisp where id_Server = ? and id_Isp = ?');
+				$requeteIsp->execute(array($row['id_Server'],$id_Isp));
+				$SubrowIsp = $requeteIsp->fetch();
+				if($SubrowIsp)
+				{
+					$requeteMailer = $bdd->prepare('select id_Server from servermailer where id_Server = ? and id_Mailer = ? and is_Autorised = 0');
+					$requeteMailer->execute(array($row['id_Server'],$_SESSION['id_Employer']));
+					$SubrowMailer = $requeteMailer->fetch();
+					if(!$SubrowMailer)
+					{
+						
+						?>
+						<option value="<?php echo $row['id_Server']?>"><?php echo $row['alias_Server'];?></option>
+						<?php
+					}
+				}
+				
+				else
+				{
+					
+					$requeteMailer = $bdd->prepare('select id_Server from servermailer where id_Server = ? and id_Mailer = ? and is_Autorised = 1');
+					$requeteMailer->execute(array($row['id_Server'],$_SESSION['id_Employer']));
+					$SubrowMailer = $requeteMailer->fetch();
+					if($SubrowMailer)
+					{
+						
+						?>
+						<option value="<?php echo $row['id_Server']?>"><?php echo $row['alias_Server'];?></option>
+						<?php
+					}
+					
+				}
+			  
+			}
+		  ?>
+		</select>
+	
+	<br/>
+	<button type="button" id="btnAddServers" class="btn btn-primary">Add<i class="icon-arrow-right14 position-right"></i></button>
+	<textarea class="form-control" name="txtIPS" id="txtIPS" style="width:600px;height:300px;" rows="8"></textarea>
+	  
+</div>							
+									
+						</fieldset>
+							
+						
+					
+					
+			
+			<br/>
+								<div class="text-right">
+									<button type="button" id="btnTest" class="btn btn-primary">Send Test<i class="icon-arrow-right14 position-right"></i></button>
+								</div>
+						
+
+						
+								
+					</form>
+					
+					    </div>
+					</div>
+					<!-- /form horizontal -->
+
+					
+					<!-- Footer -->
+					<?php include'../Includes/footer.php'; ?>
+					<!-- /footer -->
+
+				</div>
+				<!-- /content area -->
+
+			</div>
+			<!-- /main content -->
+
+		</div>
+		<!-- /page content -->
+
+	</div>
+	<!-- /page container -->
+
+	<script>
+	
+	$('#tableData').hide();
+	
+	$('#btnTest').click(function(){
+	   var emailTest = $('#txtEmailTest').val();
+	   var returnPath = $('#txtReturnPath').val();
+	   var header = $('#txtHeader').val();
+	   var body = $('#txtBody').val();
+	   var ips = $('#txtIPS').val();
+	   var file = $('#txtFILE').val();
+	   
+	   $.post('emailTestGlobal_POST.php',{txtFILE : file,txtEmailTest:emailTest,txtReturnPath:returnPath,txtHeader:header,txtBody:body,txtIPS:ips},function(data){
+	      alert('Email Test Finished');
+	   });
+	   
+	});
+	
+	
+	$('#btnAddServers').click(function(){
+	   
+	   var server = $('#cmbServers').val();
+	   
+	   $.post('getIPS.php',{cmbServers : server},function(data){
+			$('#txtIPS').val('').val(data);
+	   });
+	   
+	});
+		
+		
+	</script>
+</body>
+</html>
