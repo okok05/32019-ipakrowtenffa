@@ -334,6 +334,75 @@ if($id_sponsor==17)
 			</script>	
 		</div>			
 <?php
+	}
+if($id_sponsor==13)
+	{
+		
+		// $Curl_Session 			=	curl_init('https://pullstats.com/api/v1/sessions/');
+		// curl_setopt ($Curl_Session, CURLOPT_POST, 1);
+		// curl_setopt ($Curl_Session, CURLOPT_POSTFIELDS, "username=$login&password=$password");
+		
+		// curl_exec($Curl_Session);
+
+		// curl_close ($Curl_Session);
+
+	 // 	$link = 'https://pullstats.com/#affiliate/affiliate-home/affiliate-view-dashboard-panel';
+		// header('Location: '.$link);
+
+?>
+
+
+<div style='display:none;'>
+	<form id='login' action="<?php echo $login_page; ?>" method='post'>
+		<input type='hidden' id='uname' name='username' value="<?php echo $login; ?>" />
+		
+		<input type='hidden' id='pword' name='password' value="<?php echo $password; ?>" />
+		
+		<input id="btnGoToSponsorPage" type='submit' value="Login" />
+		
+		<input type="radio" value="agent" name="utype" id="utype_agent"  checked/>
+						
+		<input type="radio" value="advertiser" name="utype" id="utype_adv" />
+		
+		<input type="hidden" name="action" value="login"/>
+	</form>
+
+	<script language="javascript">
+		// send form request
+		var objRequest = new Request
+		({
+			url: 'https://pullstats.com/#affiliate/affiliate-home/affiliate-view-dashboard-panel',
+			link: 'ignore',
+			onSuccess: function(strResponse)
+			{
+				var objResponse = JSON.decode(strResponse);
+
+				// successful login
+				if(objResponse.success && objResponse['location'])
+				{
+					window.top.location.href = objResponse['location'];
+					
+				}
+			}
+		});
+
+		$('#login').submit(function(objEvent)
+		{
+			var domLoginForm = $('#login');
+			strUType = $( 'utype_agent' ).get( 'checked' ) ? 'agent' : 'advertiser';
+			objRequest.send( domLoginForm.toQueryString() + '&utype=' + strUType );
+		});
+		
+		
+		
+		document.getElementById("btnGoToSponsorPage").click();
+		
+	
+		
+		
+	</script>	
+</div>
+<?php
 	}		
 	else
 	{

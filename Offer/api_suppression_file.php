@@ -160,55 +160,57 @@ function	getSuppressionUrlFromSponsor($p_api_url,$p_api_key,$p_api_function,$p_c
 {
 	$result	=	null;
 	
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL,$p_api_url);
-	curl_setopt($ch, CURLOPT_POST, 1);
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_POSTFIELDS,"apikey=$p_api_key&apifunc=$p_api_function&campaignid=$p_campaign_id");
+	echo $p_api_url."<br>".$p_api_key."<br>".$p_api_function."<br>".$p_campaign_id;
 
-	if(empty($ch))
-	{
-		$result =	"0___ERROR curl_init : seems like curl is not installed on this machine !";
-	}
-	else
-	{
-		$result = curl_exec($ch);
-		if(curl_errno($ch))
-		{
-			$result =	"0___ERREUR curl_exec : ".curl_error($ch);
-		}
-		else
-		{
-			if($result=='PLEASE WAIT A FEW MINUTES BEFORE NEXT API CALL')
-			{
-				$result	=	'0___PLEASE WAIT A FEW MINUTES BEFORE NEXT API CALL';
-			}
-			else
-			{
-				$xmlSuppression_list_response	=	simplexml_load_string($result);
-				//print_r($xmlSuppression_list_response);
-				if ($xmlSuppression_list_response === false)
-				{
-					$result	=	'0___Error parsing Return XML';
-				}
-				else
-				{
-					$url_suppression	=   $xmlSuppression_list_response->data->suppurl;
-					if(!empty($url_suppression))
-					{
-						$result				=	'1___'.$url_suppression;
-					}
-					else
-					{
-						$result				=	'0___$url_suppression is empty';
-					}
-				}
-			}
-		}
-		curl_close($ch);
-	}
+	// $ch = curl_init();
+	// curl_setopt($ch, CURLOPT_URL,$p_api_url);
+	// curl_setopt($ch, CURLOPT_POST, 1);
+	// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	// curl_setopt($ch, CURLOPT_POSTFIELDS,"apikey=$p_api_key&apifunc=$p_api_function&campaignid=$p_campaign_id");
+
+	// if(empty($ch))
+	// {
+	// 	$result =	"0___ERROR curl_init : seems like curl is not installed on this machine !";
+	// }
+	// else
+	// {
+	// 	$result = curl_exec($ch);
+	// 	if(curl_errno($ch))
+	// 	{
+	// 		$result =	"0___ERREUR curl_exec : ".curl_error($ch);
+	// 	}
+	// 	else
+	// 	{
+	// 		if($result=='PLEASE WAIT A FEW MINUTES BEFORE NEXT API CALL')
+	// 		{
+	// 			$result	=	'0___PLEASE WAIT A FEW MINUTES BEFORE NEXT API CALL';
+	// 		}
+	// 		else
+	// 		{
+	// 			$xmlSuppression_list_response	=	simplexml_load_string($result);
+	// 			//print_r($xmlSuppression_list_response);
+	// 			if ($xmlSuppression_list_response === false)
+	// 			{
+	// 				$result	=	'0___Error parsing Return XML';
+	// 			}
+	// 			else
+	// 			{
+	// 				$url_suppression	=   $xmlSuppression_list_response->data->suppurl;
+	// 				if(!empty($url_suppression))
+	// 				{
+	// 					$result				=	'1___'.$url_suppression;
+	// 				}
+	// 				else
+	// 				{
+	// 					$result				=	'0___$url_suppression is empty';
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// 	curl_close($ch);
+	// }
 	
-	return $result;
+	// return $result;
 }
 
 
@@ -286,18 +288,19 @@ function 	optizmoListPreparation($p_optismo_access_token,$p_campaign_access_key,
 		$url            =	'https://mailer_api.optizmo.net/accesskey/download/'.$p_campaign_access_key.'?token='.$p_optismo_access_token.'&format='.$format.'&deltas=0';
 		$curl_result    =   makeGetCurlRequest($url);
 		$tab_result     =   json_decode($curl_result, true);
-		if($tab_result['result']=='success')
-		{
-			$result     =   $format.'__________'.$tab_result['download_link'];
-		}
-		elseif( ($tab_result['result']=='error')  and   ($tab_result['error']=='You do not have access to MD5 downloads') )		
-		{
-			$format		=	'plain';
-			$result		=	optizmoListPreparation($p_optismo_access_token,$p_campaign_access_key,$format);
-		}	
+		var_dump($tab_result);
+		// if($tab_result['result']=='success')
+		// {
+		// 	$result     =   $format.'__________'.$tab_result['download_link'];
+		// }
+		// elseif( ($tab_result['result']=='error')  and   ($tab_result['error']=='You do not have access to MD5 downloads') )		
+		// {
+		// 	$format		=	'plain';
+		// 	$result		=	optizmoListPreparation($p_optismo_access_token,$p_campaign_access_key,$format);
+		// }	
 	}
 
-	return $result;
+	// return $result;
 }
 
 

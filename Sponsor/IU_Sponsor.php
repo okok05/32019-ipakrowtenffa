@@ -18,6 +18,7 @@
 	    $requete = $bdd->prepare('select * from sponsor where id_Sponsor = ?');
 	    $requete->execute(array($id_Sponsor));
 		extract($requete->fetch());
+		
 	  }
 ?>
 
