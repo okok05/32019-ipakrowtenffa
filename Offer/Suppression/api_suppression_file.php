@@ -248,51 +248,20 @@ if(isset($_POST['id_Offer']))
 			
 			
           /***************************** MintGlobal **************************/
-			// elseif($name_plateform_suppression	==	'MintGlobal')
-			// {				
-			// 	$API_FUNCTION		=	"getsuppression";
-			// 	$API_URL 			=	getApiUrlByIdSponsor($id_sponsor);
-			// 	$API_KEY 			=	getApiAccessKeyByIdSponsor($id_sponsor);
-			// 	$affiliate_id		=	getAffiliateIdByIdSponsor($id_sponsor);
-				
-			// 	$offerSuppressionFolder     =       getSuppressionFileFolderPath();  
-			// 	$sponsorSupressionFile	=       getMintGlobalSuppressionUrlFromSponsor($API_URL,$API_KEY,$API_FUNCTION,$sid_offer,$affiliate_id);
-			// 	if($sponsorSupressionFile){					
-			// 		// deleteAllExistingFiles($offerSuppressionFolder);
-			// 		// optizmoDownloadSuppressionFile($sponsorSupressionFile,$offerSuppressionFolder,$id_offer,$sid_offer,$id_sponsor);
-			// 		// 	$final_suppression_file_name	=	moveSupressionFile($id_offer,$sid_offer,$id_sponsor);
-			// 		// echo 'final supp file name ==> '.$final_suppression_file_name;
-					
-			// 		// update_offer_suppression_filename($id_offer,$final_suppression_file_name);
-			// 		deleteAllExistingFiles($offerSuppressionFolder);
-			// 		optizmoDownloadSuppressionFile($suppressionFileLink,$offerSuppressionFolder,$id_offer,$sid_offer,$id_sponsor);
-			// 		$zipFileToExtract				=	$offerSuppressionFolder.'sp'.$id_sponsor.'-'.$id_offer.'-'.$sid_offer.'-MD5.zip';
-			// 		openExtractZipArchive($zipFileToExtract,$offerSuppressionFolder);
-					
-					
-			// 		renameSupressionFile($offerSuppressionFolder,$id_offer,$sid_offer,$id_sponsor);
-			// 		$final_suppression_file_name	=	moveSupressionFile($id_offer,$sid_offer,$id_sponsor);
-			// 		// echo 'final supp file name ==> '.$final_suppression_file_name;
-			// 		echo "Suppression File has been donwloaded !!";
-					
-			// 		update_offer_suppression_filename($id_offer,$final_suppression_file_name);
-			// 	}
-				
-				
-			// }
-
-          elseif($name_plateform_suppression	==	'MintGlobal')
+		  elseif($name_plateform_suppression	==	'MintGlobal')
           {				
-          	$API_FUNCTION		=	"getsuppression";
-          	$API_URL 			=	getApiUrlByIdSponsor($id_sponsor);
-          	$API_KEY 			=	getApiAccessKeyByIdSponsor($id_sponsor);
-          	$affiliate_id		=	getAffiliateIdByIdSponsor($id_sponsor);
-          	
+	          	$API_FUNCTION		=	"getsuppression";
+	          	$API_URL 			=	getApiUrlByIdSponsor($id_sponsor);
+	          	$API_KEY 			=	getApiAccessKeyByIdSponsor($id_sponsor);
+	          	$affiliate_id		=	getAffiliateIdByIdSponsor($id_sponsor);
+	          	$offer_name		=	getAffiliateNameByIdSponsor($id_offer);
+	          	
           	$offerSuppressionFolder     =       getSuppressionFileFolderPath();  
-          	$sponsorSupressionFileURL	=       getMintGlobalSuppressionUrlFromSponsor($API_URL,$API_KEY,$API_FUNCTION,$sid_offer,$affiliate_id);
-          	$mailer_optizmo = getMailerOptizmoUrl($sponsorSupressionFileURL);
-
-          	
+          	$sponsorSupressionFileURL	=       getMintGlobalSuppressionUrlFromSponsor($API_URL,$API_KEY,$API_FUNCTION,$sid_offer,$affiliate_id, $offer_name);
+          	if($sponsorSupressionFileURL == false){
+          		echo "Your offer id doesn't matched...";
+          	}else{
+          	$mailer_optizmo = getMailerOptizmoUrl($sponsorSupressionFileURL);          	
 
           	if(!empty($mailer_optizmo))
           	{
@@ -302,9 +271,6 @@ if(isset($_POST['id_Offer']))
           			$successful_process	=	($tab_result[0]==1)?true:false;
           			if($successful_process)
           			{
-          				
-          				
-          	
           				$mailer_optizmo	=	$tab_result[1];
           				// echo "<br/>Suppression File URL : ".$mailer_optizmo."<br/>";
           				$technologySuppressionFile  =	getUnsubLinkTechnology($mailer_optizmo);
@@ -376,8 +342,7 @@ if(isset($_POST['id_Offer']))
           							else
           							{
           								echo '0 -> getSuppressionFileUrlFromSponsor()';
-          							}
-          							
+          							}          							
           						}
           						else
           						{
@@ -392,6 +357,10 @@ if(isset($_POST['id_Offer']))
           			}
           		}
           	}
+          		
+          	}
+          	
+
           	
           }
 		
@@ -893,6 +862,22 @@ function	getAffiliateIdByIdSponsor($p_id_sponsor)
 }
 
 
+function getAffiliateNameByIdSponsor($p_id_sponsor){
+	$affiliate_name_offer		=	null;
+	
+	include('../../Includes/bdd.php');
+	$sqlGetAffiliateIdSponsor	=   "SELECT S.sid_Offer FROM offer S WHERE S.id_offer = ?";
+	$cmdGetAffiliateIdSponsor	=   $bdd->prepare($sqlGetAffiliateIdSponsor);
+	$cmdGetAffiliateIdSponsor->execute(array($p_id_sponsor));
+	$row_sponsor				=	$cmdGetAffiliateIdSponsor->fetch();
+	if($row_sponsor)
+	{
+		$affiliate_name_offer	=	$row_sponsor['sid_Offer'];
+	}
+	$cmdGetAffiliateIdSponsor->closeCursor();
+	
+	return $affiliate_name_offer;
+}
 
 function	getCakeSuppressionUrlFromSponsor($p_api_url,$p_api_key,$p_api_function,$p_sid_offer,$p_affiliate_id)
 {
@@ -921,73 +906,51 @@ function	getCakeSuppressionUrlFromSponsor($p_api_url,$p_api_key,$p_api_function,
 	return $result;
 }	
 
-// function	getMintGlobalSuppressionUrlFromSponsor($p_api_url,$p_api_key,$p_api_function,$p_sid_offer,$p_affiliate_id)
-// {
-// 	$result                     =	null;
-	
-// 	// return $p_api_url;
-// 	// 1- Get campaign id :
-// 	$campaign_id_url			=	
-// 	 $p_api_url.'/api/v1/affiliates/campaigns/?key='.$p_api_key;
-// 	$curl_response_campaign_id = makeGetCurlRequest($campaign_id_url);
-// 	$decode_campaign_id = json_decode($curl_response_campaign_id);
-// 	// var_dump($decode_campaign_id);
-// 	$campaign_id = $decode_campaign_id->data[0]->id;
-	
-// 	// // 2- Get creative id :
-// 	$pull_creative_url = $p_api_url.'/api/v1/affiliates/campaigns/'.$campaign_id.'/creatives?key='.$p_api_key;
-// 	$curl_response_pull_creative = makeGetCurlRequest($pull_creative_url);
-// 	$decode_pull_creative = json_decode($curl_response_pull_creative);	
-// 	// var_dump($decode_pull_creative);	
-// 	$creative_id = $decode_pull_creative->data->creatives[0]->id;
-
-// 	return $download_file = $p_api_url.'/api/v1/affiliates/campaigns/'.$campaign_id.'/assets/?key='.$p_api_key.'&format=zip';
-
-// }	
 
 
-function	getMintGlobalSuppressionUrlFromSponsor($p_api_url,$p_api_key,$p_api_function,$p_sid_offer,$p_affiliate_id)
+function	getMintGlobalSuppressionUrlFromSponsor($p_api_url,$p_api_key,$p_api_function,$p_sid_offer,$p_affiliate_id, $offer_name)
 {
 	$result                     =	null;
-	
-	// return $p_api_url;
+		
 	// 1- Get campaign id :
 	$campaign_id_url			=	
 	 $p_api_url.'/api/v1/affiliates/campaigns/?key='.$p_api_key;
 	$curl_response_campaign_id = makeGetCurlRequest($campaign_id_url);
 	$decode_campaign_id = json_decode($curl_response_campaign_id);
-	$campaign_id = $decode_campaign_id->data[0]->id;
+	// $campaign_id = $decode_campaign_id->data[0]->id;
+// var_dump($decode_campaign_id);
+	foreach ($decode_campaign_id->data as $key => $value) {
+		// echo $value->ref." = ".$offer_name; 
+		if($value->ref == $offer_name){
+			$campaign_id = $value->id;			
+		}
+	}
+
+	if(!empty($campaign_id)){		
+		// 2- Get creative id :
+		$pull_creative_url = $p_api_url.'/api/v1/affiliates/campaigns/'.$campaign_id.'/creatives?key='.$p_api_key;
+		$curl_response_pull_creative = makeGetCurlRequest($pull_creative_url);
+		$decode_pull_creative = json_decode($curl_response_pull_creative);
+		$creative_id = $decode_pull_creative->data->creatives[0]->id;
+
+		// 3- Suppression url
+		$suppression_url = $p_api_url.'/api/v1/affiliates/campaigns/'.$campaign_id.'?key='.$p_api_key;
+		
+		if(!empty($suppression_url))
+		{
+
+			$result				=	$suppression_url;
+		}
+		else
+		{
+			$result				=	'0___$suppression_url is empty';
+		}
+
+		return $result;
+	}else{
+		return false;
+	}
 	
-	// // 2- Get creative id :
-	$pull_creative_url = $p_api_url.'/api/v1/affiliates/campaigns/'.$campaign_id.'/creatives?key='.$p_api_key;
-	$curl_response_pull_creative = makeGetCurlRequest($pull_creative_url);
-	$decode_pull_creative = json_decode($curl_response_pull_creative);	
-	$creative_id = $decode_pull_creative->data->creatives[0]->id;
-
-	// // 3- Suppression url
-	$suppression_url = $p_api_url.'/api/v1/affiliates/campaigns/'.$campaign_id.'?key='.$p_api_key;
-	// $curl_response_suppression_url = makeGetCurlRequest($suppression_url);
-	// $decode_suppression_url = json_decode($curl_response_suppression_url);	
-	// echo $decode_suppression_url->data->offer_suppression_lists[0]->url;
-
-
-	// echo $campaign_id.'<br>'.$creative_id.'<br>';
-	// 4- Asset url
-	// echo $asset_url = $p_api_url.'/api/v1/affiliates/campaigns/'.$campaign_id.'/creatives/'.$creative_id.'/assets?key="?key='.$p_api_key;
-	// $curl_response_asset_url = makeGetCurlRequest($asset_url);
-	// echo $decode_asset_url = json_decode($curl_response_asset_url);
-
-	if(!empty($suppression_url))
-	{
-
-		$result				=	$suppression_url;
-	}
-	else
-	{
-		$result				=	'0___$suppression_url is empty';
-	}
-
-	return $result;
 	
 }
 function  getMailerOptizmoUrl($url){
