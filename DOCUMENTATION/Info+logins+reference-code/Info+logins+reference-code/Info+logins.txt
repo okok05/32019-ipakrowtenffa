@@ -1,0 +1,39 @@
+Login Access:
+http://45.56.93.78/exactarget/
+Username : USER
+Password : PASS 
+(Here where we insert Sponsor and Offers)
+
+Mailer Login:
+Username : test
+Password : test (Here where we do the process to download Supp List) Direct Link "http://45.56.93.78/exactarget/Send/prepareSend.php"
+
+PhpMyAdmin:
+Host: http://45.56.93.78/phpmyadmin/
+Username : root
+Password : ?a_f2HdQ&WEn/3$Q
+
+
+FTP Login:
+Host: sftp://45.56.93.78
+Username : root
+Password : mejnon123@
+
+Sponsor:
+Username: ,
+Password : , 
+Dierct Link: https://pulstats.com
++ API Key = 1d729ef3-c9e8-47af-900d-5d759af45bd7
++ Offer details = Offer ID: 152 , Campaign ID : 96K , Optizmo Link (Here where supp stored) : "https://mailer.optizmo.net/m-rwlp-e61-62ae357614ef12e9652fa621c8c968af"
+
+**My Affiliate Manager is on vacation you can now start work with details offer i think you can start untill i figure how to get new sponsor**
+
+1- We need to create new platform in DB named MintGLobal (Just add it into the current Table "plateform")
+
+2- Config the new API in this File --> /var/www/exactarget/Offer/Suppression/api_suppression_file.php . In this script you will know where should suppression downloaded
+
+3- Now should the API works in PrepareSend "http://45.56.93.78/exactarget/Send/prepareSend.php" when we select sponsor and offer suppression start downloading 
+
+4- Auto Login for https://pulstats.com
+
+5- I need full report of what the files that you edited

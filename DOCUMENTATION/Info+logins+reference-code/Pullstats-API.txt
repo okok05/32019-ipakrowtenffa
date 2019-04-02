@@ -1,0 +1,42 @@
+Username: nProMarket2
+Password: pullstats
+Account ID: 1FX
+API Key: e0d43281-2aed-4609-83b7-cd9f72847eb6
+
+DB KEY: 1d729ef3-c9e8-47af-900d-5d759af45bd7
+
+Docs are attached, and a tutorial example is below-
+
+First your affiliate will need their specific key, if you don't know how to get it, the Filipino team can help
+
+For pulling campaign list, you want the format to look something like this -
+https://reports.pullstats.com/api/v1/affiliates/campaigns/?key=[INSERTKEYHERE]
+
+From there you will get the campaign id, which looks something like this - 
+id      
+"12fd7901-84b8-4343-9340-be6924449b6f"
+
+
+Example Creative List Pull -
+
+https://reports.pullstats.com/api/v1/affiliates/campaigns/[INSERTCAMPAIGNIDHERE]/creatives?key=[INSERTKEYHERE]
+
+https://reports.pullstats.com/api/v1/affiliates/campaigns/12fd7901-84b8-4343-9340-be6924449b6f/creatives?key=[INSERTKEYHERE]
+
+
+
+From there you will get the campaign id, which looks something like this - 
+id      
+"062d1025-a290-4bc2-ad53-c8b4aad4bb64"
+
+Example of Creative with links prefilled Pull (this will get creative with links added)
+
+https://reports.pullstats.com/api/v1/affiliates/campaigns/[INSERTCAMPAIGNIDHERE]/creatives/[INSERTCREATIVEIDHERE]?key=[INSERTKEYHERE]&preview=html
+
+https://reports.pullstats.com/api/v1/affiliates/campaigns/12fd7901-84b8-4343-9340-be6924449b6f/creatives/062d1025-a290-4bc2-ad53-c8b4aad4bb64?key=[INSERTKEYHERE]&preview=html
+
+
+
+To Get full Assets (these dont have links pre-added to the creatives, it has to be done manually) -
+https://reports.pullstats.com/api/v1/affiliates/campaigns/[INSERTCAMPAIGNIDHERE]/assets/?key=[INSERTKEYHERE]&format=zip
+https://reports.pullstats.com/api/v1/affiliates/campaigns/12fd7901-84b8-4343-9340-be6924449b6f/assets/?key=[INSERTKEYHERE]&format=zip

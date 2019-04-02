@@ -1,0 +1,10 @@
+- Every Affilate Network Account has an affiliate ID (1FX) and API Key (e0d43281-2aed-4609-83b7-cd9f72847eb6)
+- When we get the new Affiliate network we most enter his details in http://45.56.93.78/exactarget/Sponsor/IU_Sponsor.php that is the example http://45.56.93.78/exactarget/Sponsor/IU_Sponsor.php?id_Sponsor=13
+- Now each offer has it own suppression file we know offers as ID (Campaign ID and Offer ID) please take a look in Affiliate network https://pullstats.com/#affiliate/affiliate-home/affiliate-view-dashboard-panel
+- Our goal is download the suppression file for the Offer 
+- The problem now is you did not download the suppression file for offer that you have in Affilate Network and in Application 
+- The link of suppression file is hosted by optizmo go to https://pullstats.com/#affiliate/affiliate-home/affiliate-view-dashboard-panel then click in the offer you will see an link in bottom like Supp. List nternal https://mailer.optizmo.net/.....
+- You most download it here /home/exactarget/offers/suppression/TempExtraction then unzip it you will get two files one with suppression file second domain list you most rename the suppression file with the same name that you have in zip file then move that file to /home/exactarget/offers/suppression
+- That code you already wrote is good because you get the idea from other API config you give a name to suppression file and suppression in database 
+- Please read that file /var/www/exactarget/Offer/Suppression/api_suppression_file.php you will understand more and you will know what you most do ,because Hitpath API do all procees but we need to config our API for pullstats with the same proccess thatdo Hitpath in our Application
+- which ID we need from offer , me i don't know ,but i see in API documentation in parameters needs Campaign ID 
